@@ -8,9 +8,10 @@ import com.example.tmdbclient.data.repository.artist.datasource.ArtistRemoteData
 import com.example.tmdbclient.domain.repository.ArtistRepository
 
 class ArtistRepositoryImpl(
-    private val artistCacheDataSource: ArtistCacheDataSource,
+    private val artistRemoteDataSource: ArtistRemoteDataSource,
     private val artistLocalDataSource: ArtistLocalDataSource,
-    private val artistRemoteDataSource: ArtistRemoteDataSource
+    private val artistCacheDataSource: ArtistCacheDataSource
+
 ) : ArtistRepository {
     override suspend fun getArtists(): List<Artist>? = getArtistsFromCache()
 
@@ -35,6 +36,7 @@ class ArtistRepositoryImpl(
         }
         return artistList
     }
+
     suspend fun getArtistsFromDB(): List<Artist> {
         lateinit var artistList: List<Artist>
         try {
@@ -42,14 +44,15 @@ class ArtistRepositoryImpl(
         } catch (exception: Exception) {
             Log.i("ApiException", exception.message.toString())
         }
-        if(artistList.isNotEmpty()){
+        if (artistList.isNotEmpty()) {
             return artistList
-        }else{
+        } else {
             artistList = getArtistsFromApi()
             artistLocalDataSource.saveArtistsToDB(artistList)
         }
         return artistList
     }
+
     suspend fun getArtistsFromCache(): List<Artist> {
         lateinit var artistList: List<Artist>
         try {
@@ -57,9 +60,9 @@ class ArtistRepositoryImpl(
         } catch (exception: Exception) {
             Log.i("ApiException", exception.message.toString())
         }
-        if(artistList.isNotEmpty()){
+        if (artistList.isNotEmpty()) {
             return artistList
-        }else{
+        } else {
             artistList = getArtistsFromDB()
             artistCacheDataSource.saveArtistsToCache(artistList)
         }
