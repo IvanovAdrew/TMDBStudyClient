@@ -56,7 +56,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideTvShowRepository(
+    fun provideArtistRepository(
         artistRemoteDataSource: ArtistRemoteDataSource,
         artistLocalDataSource: ArtistLocalDataSource,
         artistCacheDataSource: ArtistCacheDataSource

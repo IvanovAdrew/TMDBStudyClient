@@ -1,9 +1,14 @@
 package com.example.tmdbclient.presentation
 
 import android.app.Application
+import com.example.tmdbclient.BuildConfig
 import com.example.tmdbclient.presentation.di.Injector
 import com.example.tmdbclient.presentation.di.artist.ArtistSubComponent
 import com.example.tmdbclient.presentation.di.core.AppComponent
+import com.example.tmdbclient.presentation.di.core.AppModule
+import com.example.tmdbclient.presentation.di.core.DaggerAppComponent
+import com.example.tmdbclient.presentation.di.core.NetModule
+import com.example.tmdbclient.presentation.di.core.RemoteDataModule
 import com.example.tmdbclient.presentation.di.movie.MovieSubComponent
 import com.example.tmdbclient.presentation.di.tvShow.TvShowSubComponent
 
@@ -12,18 +17,22 @@ class App:Application(),Injector {
 
     override fun onCreate() {
         super.onCreate()
-        //appComponent =
+        appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(applicationContext))
+            .netModule(NetModule(BuildConfig.BASE_URL))
+            .remoteDataModule(RemoteDataModule(BuildConfig.API_KEY))
+            .build()
     }
 
     override fun createMovieSubComponent(): MovieSubComponent {
-        TODO("Not yet implemented")
+        return appComponent.movieSubComponent().create()
     }
 
     override fun createTvShowSubComponent(): TvShowSubComponent {
-        TODO("Not yet implemented")
+        return appComponent.tvShowSubComponent().create()
     }
 
     override fun createArtistSubComponent(): ArtistSubComponent {
-        TODO("Not yet implemented")
+        return appComponent.artistSubComponent().create()
     }
 }
