@@ -8,11 +8,12 @@ import com.example.tmdbclient.domain.usecase.UpdateTvShowsUseCase
 class TvShowViewModel(
     private val getTvShowsUseCase: GetTvShowsUseCase,
     private val updateTvShowsUseCase: UpdateTvShowsUseCase
-):ViewModel() {
+) : ViewModel() {
     fun getTvShows() = liveData {
         val tvShowList = getTvShowsUseCase.execute()
         emit(tvShowList)
     }
+
     fun updateTvShows() = liveData {
         val tvShowList = updateTvShowsUseCase.execute()
         emit(tvShowList)
