@@ -5,4 +5,7 @@ import com.example.tmdbclient.domain.repository.MovieRepository
 
 class GetMoviesUseCase(private val movieRepository: MovieRepository) {
     suspend fun execute():List<Movie>? = movieRepository.getMovies()
+    suspend fun executeSorted(): List<Movie>? {
+        return movieRepository.getMovies()?.sortedWith(compareBy { it.voteAverage })?.reversed()
+    }
 }

@@ -11,11 +11,11 @@ class MovieViewModel(
 ): ViewModel() {
 
     fun getMovies() = liveData {
-        val movieList = getMoviesUseCase.execute()
+        val movieList = getMoviesUseCase.executeSorted()
         emit(movieList)
     }
     fun updateMovies() = liveData {
-        val movieList = updateMoviesUseCase.execute()
+        val movieList = updateMoviesUseCase.executeSorted()
         emit(movieList)
     }
 
