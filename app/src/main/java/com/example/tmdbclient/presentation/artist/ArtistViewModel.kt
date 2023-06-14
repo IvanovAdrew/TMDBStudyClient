@@ -11,11 +11,11 @@ class ArtistViewModel(
     private val updateArtistsUseCase: UpdateArtistsUseCase
 ):ViewModel() {
     fun getArtists() = liveData {
-        val artistList = getArtistsUseCase.execute()
+        val artistList = getArtistsUseCase.executeSorted()
         emit(artistList)
     }
     fun updateArtists() = liveData {
-        val artistList = updateArtistsUseCase.execute()
+        val artistList = updateArtistsUseCase.executeSorted()
         emit(artistList)
     }
 }
