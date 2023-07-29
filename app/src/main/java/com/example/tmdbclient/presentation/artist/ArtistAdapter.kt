@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.tmdbclient.R
 import com.example.tmdbclient.data.model.artist.Artist
 import com.example.tmdbclient.databinding.ListItemBinding
+import com.example.tmdbclient.databinding.ListItemForActorsBinding
 
 class ArtistAdapter():RecyclerView.Adapter<MyViewHolder>() {
     private val artistList = ArrayList<Artist>()
@@ -18,9 +19,9 @@ class ArtistAdapter():RecyclerView.Adapter<MyViewHolder>() {
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding: ListItemBinding = DataBindingUtil.inflate(
+        val binding: ListItemForActorsBinding = DataBindingUtil.inflate(
             layoutInflater,
-            R.layout.list_item,
+            R.layout.list_item_for_actors,
             parent,
             false
         )
@@ -37,7 +38,7 @@ class ArtistAdapter():RecyclerView.Adapter<MyViewHolder>() {
 
 }
 
-class MyViewHolder(val  binding: ListItemBinding):RecyclerView.ViewHolder(binding.root){
+class MyViewHolder(val  binding: ListItemForActorsBinding):RecyclerView.ViewHolder(binding.root){
 
     fun bind(artist: Artist){
         Log.i("MYTAG",artist.name.toString())
